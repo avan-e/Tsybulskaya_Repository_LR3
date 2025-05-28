@@ -1,14 +1,6 @@
 #include <iostream>
 #include <limits>
 using namespace std;
-#include <windows.h>
-#ifdef max
-#undef max
-#endif
-#include <fcntl.h>
-#include <io.h>
-#include <clocale>
-#include <string>
 
 // Задача 1 - Нахождение наибольшей цифры
 void task1() {
@@ -103,13 +95,7 @@ void menu() {
 }
 
 int main() {
-    // 1) Устанавливаем кодировку консоли в UTF-8
-    SetConsoleCP(CP_UTF8);
-    SetConsoleOutputCP(CP_UTF8);
-    // 2) Переводим stdout/stderr в бинарный режим UTF-16,
-    //    чтобы wcout печатал правильно
-    _setmode(_fileno(stdout), _O_U16TEXT);
-    _setmode(_fileno(stdin ), _O_U16TEXT);
+    setlocale(LC_ALL, "rus");
     menu();
     return 0;
 }
