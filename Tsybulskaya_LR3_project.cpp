@@ -1,115 +1,79 @@
 #include <iostream>
-#include <limits>
+#include <climits> // Для использования INT_MAX и INT_MIN
+
 using namespace std;
-#include <windows.h>
-#ifdef max
-#undef max
-#endif
-#include <fcntl.h>
-#include <io.h>
-#include <clocale>
-#include <string>
 
-// Задача 1 - Нахождение наибольшей цифры
-void task1() {
-    long long number;
-    cout << "Введите натуральное число: ";
-    cin >> number;
-
-    // Проверка корректности ввода
-    if (cin.fail() || number <= 0) {
-        cout << "Ошибка: Введите корректное натуральное число." << endl;
-        cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        return;
-    }
-
-    int max_digit = 0;
-    long long temp = number; // Сохраняем исходное число
-
-    while (temp > 0) {
-        int digit = temp % 10;
-        if (digit > max_digit) {
-            max_digit = digit;
-        }
-        temp /= 10;
-    }
-
-    cout << "Наибольшая цифра в числе " << number << ": " << max_digit << endl;
-}
-
-// Задача 2 - Нахождение наименьшей цифры
-void task2() {
-    long long number;
-    cout << "Введите натуральное число: ";
-    cin >> number;
-
-    // Проверка корректности ввода
-    if (cin.fail() || number <= 0) {
-        cout << "Ошибка: Введите корректное натуральное число." << endl;
-        cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        return;
-    }
-
-    int min_digit = 9;
-    long long temp = number; // Сохраняем исходное число
-
-    while (temp > 0) {
-        int digit = temp % 10;
-        if (digit < min_digit) {
-            min_digit = digit;
-        }
-        temp /= 10;
-    }
-
-    cout << "Наименьшая цифра в числе " << number << ": " << min_digit << endl;
-}
-
-void menu() {
-    while (true) {
-        cout << "\nМеню:" << endl;
-        cout << "1: Найти наибольшую цифру в записи числа" << endl;
-        cout << "2: Найти наименьшую цифру в записи числа" << endl;
-        cout << "0: Выход" << endl;
-
-        int choice;
-        cout << "\nВведите номер задания (0-2): ";
-        cin >> choice;
-
-        // Проверка корректности ввода
-        if (cin.fail()) {
-            cout << "Ошибка: Введите число от 0 до 2." << endl;
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            continue;
-        }
-
-        switch (choice) {
-        case 1:
-            task1();
-            break;
-        case 2:
-            task2();
-            break;
-        case 0:
-            cout << "Выход из программы." << endl;
-            return;
-        default:
-            cout << "Ошибка: Введите число от 0 до 2." << endl;
-            break;
-        }
-    }
-}
+// Прототип функции для задачи о цифрах числа
+void FindMinMaxDigits();
 
 int main() {
-    // 1) Устанавливаем кодировку консоли в UTF-8
-    SetConsoleCP(CP_UTF8);
-    SetConsoleOutputCP(CP_UTF8);
-    // 2) Переводим stdout/stderr в бинарный режим UTF-16,
-    //    чтобы wcout печатал правильно
-    _setmode(_fileno(stdout), _O_U16TEXT);
-    _setmode(_fileno(stdin ), _O_U16TEXT);
-    menu();
+    int choice;
+    
+    do {
+        cout << "Task 1. Найти наибольшую и наименьшую цифру в числе" << endl;
+        cout << "Task 2. Другая функция (пример)" << endl;
+        cout << "Please enter the number of the desired function or 0 if you want to close the app: ";
+        
+        cin >> choice;
+        
+        switch(choice) {
+            case 0:
+                cout << "Exiting the application..." << endl;
+                break;
+            case 1:
+                FindMinMaxDigits();
+                break;
+            case 2:
+                // Другая функция
+                break;
+            default:
+                cout << "Invalid choice. Please try again." << endl;
+        }
+        
+    } while(choice != 0);
+    
+    return 0;
+}
+
+// Реализация функции для задачи о цифрах числа
+void FindMinMaxDigits() {
+    int X;
+    cout << "Введите натуральное число X: ";
+    cin >> X;
+    
+    if (X <= 0) {
+        cout << "Ошибка: число должно быть натуральным (положительным)." << endl;
+        return;
+    }
+    
+    int minDigit = 9;  // Начальное значение для поиска минимума
+    int maxDigit = 0;   // Начальное значение для поиска максимума
+    int temp = X;       // Рабочая копия числа
+    
+    while (temp > 0) {
+        int digit = temp % 10;  // Получаем последнюю цифру
+        minDigit = (digit < minDigit) ? digit : minDigit;
+        maxDigit = (digit > maxDigit) ? digit : maxDigit;
+        temp /= 10;             // Убираем последнюю цифру
+    }
+    
+    cout << "В числе " << X << ":" << endl;
+    cout << "Наименьшая цифра: " << minDigit << endl;
+    cout << "Наибольшая цифра: " << maxDigit << endl;
+}
+
+// Пример других функций (как в оригинале)
+double EnterNumber() {
+    //разрабатывается Иванович И. - ветка branch_fun_1
+    return 0;
+}
+
+double CalcArea(int num_a) {
+    //разрабатывается Петрович П. - ветка branch_fun_2
+    return 0;
+}
+
+double CalcPerim(int num_a) {
+    //разрабатывается Васильевич В. - ветка branch_fun_3
     return 0;
 }
